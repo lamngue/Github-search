@@ -1,13 +1,15 @@
 const reducer = (state = [], action) => {
-    switch(action.type) {
+    let newState = [];
+    switch (action.type) {
         case "GET_FOLLOWERS_COUNT":
-            const newState = [...state, action.payload]
-            return newState
+            const newUser = { login: action.payload.login, followers: action.payload.followers };
+            newState = [...state, newUser];
+            return newState;
         case "CLEAR_FOLLOWERS":
-            return action.payload
+            return action.payload;
         default:
-            return state
+            return state;
     }
-}
+};
 
 export default reducer;

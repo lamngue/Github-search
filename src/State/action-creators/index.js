@@ -1,167 +1,170 @@
-import axios from 'axios';
+import axios from "axios";
 
 const getAxiosInstance = () => {
     return axios.create({
-        baseURL: 'https://api.github.com/',
+        baseURL: "https://api.github.com/",
         headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'token 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'
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "token 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",
         },
     });
 };
 
 export const fetchUser = (searchTerm, page = 1, extraHeaders = {}) => {
-    return async (dispatch) => {
-        const results = await getAxiosInstance().get(`search/users?q=${searchTerm}&page=${page}&per_page=12`, {
-            headers: { ...extraHeaders },
-        });
+    return async dispatch => {
+        const results = await getAxiosInstance().get(
+            `search/users?q=${searchTerm}&page=${page}&per_page=12`,
+            {
+                headers: { ...extraHeaders },
+            },
+        );
         dispatch({
             type: "FETCH_USERS",
-            payload: results.data
-        })
-    }
-}
+            payload: results.data,
+        });
+    };
+};
 
 export const getOneUser = (username, extraHeaders = {}) => {
-    return async (dispatch) => {
+    return async dispatch => {
         const results = await getAxiosInstance().get(`/users/${username}`, {
             headers: { ...extraHeaders },
         });
         dispatch({
             type: "FETCH_ONE_USER",
-            payload: results.data
-        })
-    }
-}
+            payload: results.data,
+        });
+    };
+};
 
 export const getOneUserRepos = (username, page = 1, extraHeaders = {}) => {
-    return async (dispatch) => {
+    return async dispatch => {
         const results = await getAxiosInstance().get(`/users/${username}/repos?page=${page}`, {
             headers: { ...extraHeaders },
         });
         dispatch({
             type: "FETCH_ONE_USER_REPOS",
-            payload: results.data
-        })
-    }
-}
+            payload: results.data,
+        });
+    };
+};
 
 export const getOneUserFollowers = (username, page = 1, extraHeaders = {}) => {
-    return async (dispatch) => {
+    return async dispatch => {
         const results = await getAxiosInstance().get(`/users/${username}/followers?page=${page}`, {
             headers: { ...extraHeaders },
         });
         dispatch({
             type: "FETCH_ONE_USER_FOLLOWERS",
-            payload: results.data
-        })
-    }
-}
+            payload: results.data,
+        });
+    };
+};
 
 export const getOneUserFollowing = (username, page = 1, extraHeaders = {}) => {
-    return async (dispatch) => {
+    return async dispatch => {
         const results = await getAxiosInstance().get(`/users/${username}/following?page=${page}`, {
             headers: { ...extraHeaders },
         });
         dispatch({
             type: "FETCH_ONE_USER_FOLLOWING",
-            payload: results.data
-        })
-    }
-}
+            payload: results.data,
+        });
+    };
+};
 
-export const setSearchTerm = (searchTerm) => {
-    return (dispatch) => {
+export const setSearchTerm = searchTerm => {
+    return dispatch => {
         dispatch({
             type: "SEARCH",
-            payload: searchTerm
-        })
-    }
-}
+            payload: searchTerm,
+        });
+    };
+};
 
-export const setPageUsers = (page) => {
-    return (dispatch) => {
+export const setPageUsers = page => {
+    return dispatch => {
         dispatch({
             type: "PAGE_USERS",
-            payload: page
-        })
-    }
-}
+            payload: page,
+        });
+    };
+};
 
-export const setPageRepos = (page) => {
-    return (dispatch) => {
+export const setPageRepos = page => {
+    return dispatch => {
         dispatch({
             type: "PAGE_REPOS",
-            payload: page
-        })
-    }
-}
+            payload: page,
+        });
+    };
+};
 
-export const setPageFollowers = (page) => {
-    return (dispatch) => {
+export const setPageFollowers = page => {
+    return dispatch => {
         dispatch({
             type: "PAGE_FOLLOWERS",
-            payload: page
-        })
-    }
-}
+            payload: page,
+        });
+    };
+};
 
-export const setPageFollowing = (page) => {
-    return (dispatch) => {
+export const setPageFollowing = page => {
+    return dispatch => {
         dispatch({
             type: "PAGE_FOLLOWING",
-            payload: page
-        })
-    }
-}
+            payload: page,
+        });
+    };
+};
 
-export const setCurrentUserDisplay = (display) => {
-    return (dispatch) => {
+export const setCurrentUserDisplay = display => {
+    return dispatch => {
         dispatch({
             type: "CURRENT_USER_DISPLAY",
-            payload: display
-        })
-    }
-}
+            payload: display,
+        });
+    };
+};
 
 export const getFollowersCount = (username, extraHeaders = {}) => {
-    return async (dispatch) => {
-        const results =  await getAxiosInstance().get(`users/${username}`, {
+    return async dispatch => {
+        const results = await getAxiosInstance().get(`users/${username}`, {
             headers: { ...extraHeaders },
         });
         dispatch({
             type: "GET_FOLLOWERS_COUNT",
-            payload: results.data.followers
-        })
-    }
-}
+            payload: results.data,
+        });
+    };
+};
 export const getFollowingCount = (username, extraHeaders = {}) => {
-    return async (dispatch) => {
+    return async dispatch => {
         const results = await getAxiosInstance().get(`users/${username}`, {
             headers: { ...extraHeaders },
         });
         dispatch({
             type: "GET_FOLLOWINGS_COUNT",
-            payload: results.data.following
-        })
-    }
-}
+            payload: results.data,
+        });
+    };
+};
 
 export const clearFollowers = () => {
-    return (dispatch) => {
+    return dispatch => {
         dispatch({
             type: "CLEAR_FOLLOWERS",
-            payload: []
-        })
-    }
-}
+            payload: [],
+        });
+    };
+};
 
 export const clearFollowing = () => {
-    return (dispatch) => {
+    return dispatch => {
         dispatch({
             type: "CLEAR_FOLLOWING",
-            payload: []
-        })
-    }
-}
+            payload: [],
+        });
+    };
+};
