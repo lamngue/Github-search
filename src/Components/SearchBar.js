@@ -1,31 +1,38 @@
-import React from "react";
+import React, { useEffect, useCallback } from "react";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
+import { debounce } from "lodash";
 import { actionCreators } from "../State/index";
 import { useSelector } from "react-redux";
 import Results from "./Results";
 const SearchBar = () => {
     const searchTerm = useSelector(state => state.searchTerm);
-    const pageUsers = useSelector(state => state.pageUsers);
 
     const dispatch = useDispatch();
-    const { fetchUser, setPageUsers, setSearchTerm, clearFollowers, clearFollowing } =
+    const { fetchUser, setUsers, setPageUsers, setSearchTerm, clearFollowers, clearFollowing } =
         bindActionCreators(actionCreators, dispatch);
     const handleChange = e => {
         setSearchTerm(e.target.value);
     };
-    const handleClick = () => {
-        try {
-            clearFollowers();
-            clearFollowing();
-            setPageUsers(0);
-            fetchUser(searchTerm);
-        } catch (err) {
-            console.log(err);
+
+    const handleFetchUser = useCallback(
+        debounce(str => {
+            fetchUser(str);
+        }, 200),
+    );
+
+    useEffect(() => {
+        clearFollowers();
+        clearFollowing();
+        setPageUsers(0);
+        if (searchTerm) {
+            handleFetchUser(searchTerm);
+        } else {
+            setUsers([]);
         }
-    };
+    }, [searchTerm]);
+
     return (
         <div style={{ padding: "20px" }}>
             <h2>Search</h2>
@@ -38,9 +45,9 @@ const SearchBar = () => {
                     onChange={handleChange}
                     variant="outlined"
                 />
-                <Button variant="contained" onClick={handleClick}>
+                {/* <Button variant="contained" onClick={handleClick}>
                     Search
-                </Button>
+                </Button> */}
                 <Results />
             </div>
         </div>

@@ -39,7 +39,9 @@ const Results = () => {
         setPageUsers(value);
         clearFollowers();
         clearFollowing();
-        fetchUser(searchTerm, value);
+        if (searchTerm) {
+            fetchUser(searchTerm, value);
+        }
     };
 
     const renderUsers = () => {
@@ -100,7 +102,8 @@ const Results = () => {
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <Pagination
                         sx={{ padding: "20px" }}
-                        count={Math.ceil(users.items.length / 12)}
+                        style={{ marginBottom: "10px" }}
+                        count={Math.ceil(users.total_count / 12)}
                         page={pageUsers}
                         onChange={handleChange}
                     />

@@ -6,10 +6,15 @@ const getAxiosInstance = () => {
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: "token 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",
+            Authorization: `token ${process.env.REACT_APP_PRIVATE_GITHUB_TOKEN}`,
         },
     });
 };
+
+export const setUsers = users => ({
+    type: "SET_USERS",
+    payload: users,
+});
 
 export const fetchUser = (searchTerm, page = 1, extraHeaders = {}) => {
     return async dispatch => {
@@ -19,10 +24,7 @@ export const fetchUser = (searchTerm, page = 1, extraHeaders = {}) => {
                 headers: { ...extraHeaders },
             },
         );
-        dispatch({
-            type: "FETCH_USERS",
-            payload: results.data,
-        });
+        dispatch(setUsers(results.data));
     };
 };
 

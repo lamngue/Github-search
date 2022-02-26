@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import { makeStyles } from "@mui/styles";
-import "../CSS/style.css";
 
 const useStyles = makeStyles({
     root: {

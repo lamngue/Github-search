@@ -15,7 +15,20 @@ import Box from "@mui/material/Box";
 import User from "./User";
 import HomeIcon from "@mui/icons-material/Home";
 import Repos from "./Repos";
-import "../CSS/style.css";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles({
+    picture: {
+        display: "flex",
+        justifyContent: "center",
+    },
+    intro: {
+        textAlign: "center",
+    },
+    padding: {
+        padding: "20px",
+    },
+});
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -51,6 +64,7 @@ function a11yProps(index) {
 }
 
 const Profile = () => {
+    const classes = useStyles();
     const user = useSelector(state => state.users);
     const currentDisplay = useSelector(state => state.currentDisplay);
     const pageRepos = useSelector(state => state.pageRepos);
@@ -207,16 +221,18 @@ const Profile = () => {
     };
 
     return (
-        <div style={{ padding: "20px" }}>
+        <div className={classes.padding}>
             <Link to={"/"}>
                 <HomeIcon fontSize="large" />
             </Link>
-            <div id="avatar">
+            <div className={classes.picture}>
                 <Avatar alt="Remy Sharp" src={user.avatar_url} sx={{ width: 56, height: 56 }} />
             </div>
-            <div id="intro">
-                <span id="content">{user.name}</span>
-                <span id="content">{user.login}</span>
+            <div className={classes.intro}>
+                <span>{user.name}</span>
+                <br />
+                <span>{user.login}</span>
+                <br />
                 <span>{user.location}</span>
             </div>
             <Box sx={{ width: "100%" }}>
