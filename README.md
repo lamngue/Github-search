@@ -1,3 +1,4 @@
+A coding project as part of the application to Oddle. The link to the requirements can be found [here](https://github.com/oddle-developer/oddle-frontend-challenge)
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
